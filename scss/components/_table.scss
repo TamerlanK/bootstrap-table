@@ -1,0 +1,73 @@
+@use "sass:math";
+@import "../colors";
+@import "../variables";
+
+table.table {
+  width: 100%;
+  background-color: #fff;
+
+  thead {
+    border-bottom: 1px solid $table-border-color;
+  }
+
+  th,
+  td {
+    padding: $table-padding;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &-striped {
+    tr:nth-of-type(even) {
+      background-color: $table-striped-bg;
+    }
+  }
+
+  &-hover {
+    tbody tr:hover {
+      background-color: $table-hover-bg;
+    }
+  }
+
+  &-bordered {
+    th,
+    td {
+      border: 1px solid $table-border-color;
+    }
+  }
+
+  &-sm {
+    th,
+    td {
+      padding: math.div($table-padding, 2);
+    }
+  }
+
+  &-responsive {
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      margin-bottom: 1rem;
+      border-collapse: collapse;
+    }
+  }
+
+  caption {
+    padding: $table-padding;
+    color: $text-color;
+  }
+}
+
+@each $key, $value in $colors {
+  :is(table, tr).table-#{$key},
+  thead.thead-#{$key},
+  .bg-#{$key} {
+    background-color: $value;
+    @if $key == "dark" {
+      color: #fff !important;
+    }
+  }
+}
